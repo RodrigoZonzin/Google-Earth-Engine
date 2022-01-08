@@ -1,0 +1,17 @@
+var colID = 'LANDSAT/LE07/C02/T1_L2';
+var today = ee.Date(Date.now());
+//var Image = ee.ImageCollection(colID.); 
+
+table = ee.FeatureCollection('users/rodrigozonzin/MG_RG_Imediatas_2020')
+            .filter('NM_RGI == "Belo Horizonte"');
+            
+            
+var image = ee.ImageCollection(colID)
+.filterBounds(table).filterDate(today.advance(-2, 'months', today));
+
+            
+//var imgCalibrada = image.multiply(1.75e-05).add(-0.2)
+//  .copyProperties(image, img.propertyNames());
+Map.addLayer(image, trueColor);            
+Map.addLayer(table); 
+
